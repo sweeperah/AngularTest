@@ -20,6 +20,11 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - It MUST follow all WCAG AA minimums, including focus management, color contrast, and ARIA attributes.
 
 ### Components
+- New Components are always created in /src/components/.
+- New Components are always created with its dedicated .stories.ts and .scss file.
+- New Component names and selectors are always PascalCase.
+- New Component file and folder names are same as Component name but camelCase.
+- New Component templates are always created just with a div incl. class = Component Name. If not specified explicitly.
 - Keep components small and focused on a single responsibility
 - Use `input()` and `output()` functions instead of decorators
 - Use `computed()` for derived state

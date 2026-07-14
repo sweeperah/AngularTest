@@ -1,7 +1,25 @@
-div {
-  background: crimson;
+@use '../styles' as *;
 
-  div {
-    background: blue;
+.page {
+  display: flex;
+  flex-flow: column;
+  gap: spacing(3);
+
+  align-items: center;
+
+  min-height: 100vh;
+  padding-bottom: spacing(4);
+
+  &Content {
+    display: grid;
+    grid-template: '. content .' 1fr / 1fr 10fr 1fr;
+    gap: spacing(3);
+
+    max-width: $mq6;
+    width: 100vw;
+
+    &Inner {
+      grid-area: content;
+    }
   }
 }

@@ -1,0 +1,6 @@
+// spacing
+$space: 8px;
+
+@function spacing($multiplier) {
+  @return ($multiplier * $space);
+}

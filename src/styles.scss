@@ -1,1 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'mixins/misc';
+@import 'mixins/mediaQueries';
+@import 'mixins/typo';
+
+body {
+  @include defaultText;
+
+  margin: 0;
+}

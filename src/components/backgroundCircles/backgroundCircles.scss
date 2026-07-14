@@ -1,0 +1,14 @@
+.BackgroundCircles {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.BackgroundCirclesItem {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(2px);
+  transform: translate(-50%, -50%);
+}

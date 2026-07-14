@@ -1,0 +1,75 @@
+@use '../../../styles' as *;
+
+.ProductCard {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 1rem;
+  background: #ffffff;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.06),
+    0 1px 3px rgba(0, 0, 0, 0.08);
+  transition:
+    transform 250ms ease,
+    box-shadow 250ms ease;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow:
+      0 12px 24px rgba(0, 0, 0, 0.12),
+      0 4px 8px rgba(0, 0, 0, 0.08);
+
+    .ProductCardMedia img {
+      transform: scale(1.08);
+    }
+  }
+}
+
+.ProductCardMedia {
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 400ms ease;
+  }
+}
+
+.ProductCardBody {
+  display: flex;
+  flex-direction: column;
+  gap: spacing(0.5);
+  padding: spacing(2);
+}
+
+.ProductCardCategory {
+  @include caption();
+
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.ProductCardName {
+  @include smallTitle();
+
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.ProductCardRating {
+  display: flex;
+  gap: spacing(0.25);
+}
+
+.ProductCardFooter {
+  margin-top: spacing(1);
+}
+
+.ProductCardPrice {
+  @include buttonText();
+
+  font-size: 1.125rem;
+  color: #1d4ed8;
+}

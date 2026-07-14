@@ -1,0 +1,94 @@
+// Media Queries Numbers
+$mq1: 0px;
+$mq2: 480px;
+$mq3: 768px;
+$mq4: 1024px;
+$mq5: 1280px;
+$mq6: 1536px;
+
+// Min Media Queries
+@mixin mq2min {
+  @media (width >= $mq2) {
+    @content;
+  }
+}
+
+@mixin mq3min {
+  @media (width >= $mq3) {
+    @content;
+  }
+}
+
+@mixin mq4min {
+  @media (width >= $mq4) {
+    @content;
+  }
+}
+
+@mixin mq5min {
+  @media (width >= $mq5) {
+    @content;
+  }
+}
+
+@mixin mq6min {
+  @media (width >= $mq6) {
+    @content;
+  }
+}
+
+// Max Media Queries
+@mixin mq1max {
+  @media (width < $mq2) {
+    @content;
+  }
+}
+
+@mixin mq2max {
+  @media (width < $mq3) {
+    @content;
+  }
+}
+
+@mixin mq3max {
+  @media (width < $mq4) {
+    @content;
+  }
+}
+
+@mixin mq4max {
+  @media (width < $mq5) {
+    @content;
+  }
+}
+
+@mixin mq5max {
+  @media (width < $mq6) {
+    @content;
+  }
+}
+
+// Only Media Queries
+@mixin mq2only {
+  @media (width >= $mq2) and (width < $mq3) {
+    @content;
+  }
+}
+
+@mixin mq3only {
+  @media (width >= $mq3) and (width < $mq4) {
+    @content;
+  }
+}
+
+@mixin mq4only {
+  @media (width >= $mq4) and (width < $mq5) {
+    @content;
+  }
+}
+
+@mixin mq5only {
+  @media (width >= $mq5) and (width < $mq6) {
+    @content;
+  }
+}

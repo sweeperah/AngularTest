@@ -1,3 +1,6 @@
+// For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
+import storybook from 'eslint-plugin-storybook'
+
 import eslint from '@eslint/js'
 import { defineConfig } from 'eslint/config'
 import tseslint from 'typescript-eslint'
@@ -30,8 +33,8 @@ export default defineConfig([
         'error',
         {
           type: 'element',
-          prefix: 'app',
-          style: 'kebab-case',
+          prefix: [],
+          style: 'camelCase',
         },
       ],
       '@stylistic/block-spacing': ['error'],
@@ -45,4 +48,5 @@ export default defineConfig([
       'local/blank-line-between-blocks': 'error',
     },
   },
+  ...storybook.configs['flat/recommended'],
 ])

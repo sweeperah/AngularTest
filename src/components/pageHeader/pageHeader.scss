@@ -1,0 +1,35 @@
+@use '../../styles' as *;
+
+:host {
+  width: 100%;
+}
+
+.pageHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 40px;
+  background: rgb(200, 175, 85);
+
+  &Inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: spacing(2);
+    align-items: center;
+  }
+
+  .logo {
+    @include smallTitle();
+
+    display: flex;
+    align-items: center;
+    gap: spacing(1);
+
+    margin: 0;
+  }
+
+  .phrase {
+    justify-self: center;
+  }
+}
