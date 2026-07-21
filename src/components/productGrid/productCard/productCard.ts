@@ -1,7 +1,7 @@
 import { Component, computed, Input } from '@angular/core'
 import { CurrencyPipe, NgOptimizedImage } from '@angular/common'
 import { GoogleSymbol } from '../../googleSymbol/googleSymbol'
-import { Product } from '../productGrid'
+import { Product } from '../../../services/product.service'
 
 @Component({
   selector: 'ProductCard',

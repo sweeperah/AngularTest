@@ -1,6 +1,6 @@
-import { Product } from './productGrid'
+import { Product } from './product.service'
 
-export const products: Product[] = [
+export const PRODUCTS: Product[] = [
   {
     id: 'aurora-lounge-chair',
     name: 'Aurora Lounge Chair',

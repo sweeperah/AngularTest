@@ -1,15 +1,7 @@
 import { Component, input } from '@angular/core'
 import { RouterLink } from '@angular/router'
+import { Product } from '../../services/product.service'
 import { ProductCard } from './productCard/productCard'
-
-export interface Product {
-  id: string
-  name: string
-  category: string
-  price: number
-  rating: number
-  imageSeed: string
-}
 
 @Component({
   selector: 'ProductGrid',

@@ -1,7 +1,7 @@
-import { Component, computed, effect, ElementRef, input, signal, viewChild } from '@angular/core'
+import { Component, computed, effect, ElementRef, inject, input, signal, viewChild } from '@angular/core'
 import { CurrencyPipe, NgOptimizedImage } from '@angular/common'
 import { GoogleSymbol } from '../../components/googleSymbol/googleSymbol'
-import { products } from '../../components/productGrid/productGrid.data'
+import { ProductService } from '../../services/product.service'
 
 @Component({
   selector: 'ProductPage',
@@ -72,9 +72,11 @@ import { products } from '../../components/productGrid/productGrid.data'
   styleUrl: './product.scss',
 })
 export default class ProductPage {
+  private readonly productService = inject(ProductService)
+
   readonly id = input('')
 
-  protected readonly product = computed(() => products.find(p => p.id === this.id()))
+  protected readonly product = computed(() => this.productService.getProduct(this.id()))
 
   protected readonly ratingStars = computed(() => {
     const rating = this.product()?.rating ?? 0

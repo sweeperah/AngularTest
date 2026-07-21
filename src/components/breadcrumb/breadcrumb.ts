@@ -2,7 +2,7 @@ import { Component, computed, inject } from '@angular/core'
 import { toSignal } from '@angular/core/rxjs-interop'
 import { NavigationEnd, Router, RouterLink } from '@angular/router'
 import { filter, map, startWith } from 'rxjs'
-import { products } from '../productGrid/productGrid.data'
+import { ProductService } from '../../services/product.service'
 
 interface Crumb {
   label: string
@@ -33,6 +33,7 @@ interface Crumb {
 })
 export class Breadcrumb {
   private readonly router = inject(Router)
+  private readonly productService = inject(ProductService)
 
   private readonly url = toSignal(
     this.router.events.pipe(
@@ -58,7 +59,8 @@ export class Breadcrumb {
         continue
       }
 
-      const product = products.find(p => p.id === segment)
+      const product = this.productService.getProduct(segment)
+
       trail.push({ label: product ? product.name : segment, path })
     }
 
