@@ -1,0 +1,66 @@
+@use '../../../mixins/misc' as *;
+@use '../../../mixins/typo' as *;
+
+.SearchBox {
+  display: grid;
+  grid-template: 'input input' 40px / 1fr 40px;
+  gap: spacing(1);
+
+  position: relative;
+
+  input {
+    @include defaultText();
+
+    grid-area: input;
+    flex: 1;
+
+    border: 1px solid $lightGrey;
+    border-radius: 8px;
+
+    padding: spacing(1) spacing(1.5);
+    background: white;
+
+    &:focus-visible {
+      outline: 2px solid $oldYellow;
+      outline-offset: 2px;
+    }
+  }
+
+  ButtonComp {
+    grid-area: 1 / 2 / 1 / 2;
+    position: relative;
+  }
+
+  ::ng-deep ButtonComp .btn {
+    @include buttonText(white);
+
+    --size: 38px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    padding: spacing(1) spacing(2);
+    border-radius: 6px;
+    background: $oldYellow;
+
+    transition: background 150ms, border 150ms, color 150ms, box-shadow 150ms, height 150ms linear, width 150ms linear;
+    transform-origin: center center;
+
+    &:hover {
+      --size: 44px;
+
+      background: lighten($oldYellow, 10%);
+      border-radius: 8px;
+      border-color: $lightGrey;
+      color: $typo-color-default;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
+    }
+
+    &:focus-visible {
+      outline: 2px solid $oldYellow;
+      outline-offset: 3px;
+    }
+  }
+}

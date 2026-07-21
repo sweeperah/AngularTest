@@ -1,4 +1,4 @@
-@use '../../styles' as *;
+@use '../../mixins/misc' as *;
 
 .ProductGrid {
   display: grid;
@@ -15,7 +15,7 @@
   border-radius: 1rem;
 
   &:focus-visible {
-    outline: 2px solid #1d4ed8;
+    outline: 2px solid $oldYellow;
     outline-offset: 2px;
   }
 }

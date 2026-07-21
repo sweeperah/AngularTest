@@ -1,4 +1,4 @@
-@use '../../styles' as *;
+@use '../../mixins/misc' as *;
 
 .CustomContent {
   display: grid;
@@ -14,5 +14,9 @@
 
   &Inner {
     grid-area: content;
+
+    display: flex;
+    flex-flow: column;
+    gap: spacing(3);
   }
 }

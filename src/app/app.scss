@@ -1,14 +1,16 @@
-@use '../styles' as *;
+@use '../mixins/misc' as *;
+@use '../mixins/mediaQueries' as *;
 
 .page {
   display: flex;
   flex-flow: column;
+  align-items: center;
   gap: spacing(3);
 
-  align-items: center;
-
-  min-height: 100vh;
+  position: relative;
+  margin-top: calc(var(--headerHeight) + #{spacing(1)});
   padding-bottom: spacing(4);
+  min-height: 100vh;
 
   &Content {
     display: grid;
@@ -22,4 +24,8 @@
       grid-area: content;
     }
   }
+}
+
+router-outlet {
+  display: contents;
 }

@@ -1,6 +1,4 @@
-@import 'mixins/misc';
-@import 'mixins/mediaQueries';
-@import 'mixins/typo';
+@use 'mixins/typo' as *;
 
 body {
   @include defaultText;

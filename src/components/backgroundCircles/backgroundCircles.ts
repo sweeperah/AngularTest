@@ -113,6 +113,7 @@ export class BackgroundCircles {
       if (this.rafId) {
         return
       }
+
       this.lastTime = 0
       this.document.addEventListener('mousemove', onMouseMove, { passive: true })
       this.rafId = requestAnimationFrame(loop)
@@ -120,6 +121,7 @@ export class BackgroundCircles {
 
     const stopLoop = (): void => {
       cancelAnimationFrame(this.rafId)
+
       this.rafId = 0
       this.mouse = null
       this.document.removeEventListener('mousemove', onMouseMove)
@@ -161,13 +163,16 @@ export class BackgroundCircles {
 
       let repelX = 0
       let repelY = 0
+
       if (this.mouse) {
         const distX = curX - this.mouse.x
         const distY = curY - this.mouse.y
         const dist = Math.hypot(distX, distY)
+
         if (dist < REPEL_RADIUS && dist > 0.01) {
           const falloff = (1 - dist / REPEL_RADIUS) ** 2
           const force = MAX_REPEL_FORCE * falloff
+
           repelX = (distX / dist) * force
           repelY = (distY / dist) * force
         }
@@ -175,6 +180,7 @@ export class BackgroundCircles {
 
       const ax = -STIFFNESS * (state.dx - idleX) - DAMPING * state.vx + repelX
       const ay = -STIFFNESS * (state.dy - idleY) - DAMPING * state.vy + repelY
+
       state.vx += ax * dt
       state.vy += ay * dt
       state.dx += state.vx * dt

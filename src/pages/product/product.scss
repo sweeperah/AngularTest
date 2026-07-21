@@ -1,11 +1,19 @@
-@use '../../styles' as *;
+@use '../../mixins/misc' as *;
+@use '../../mixins/mediaQueries' as *;
+@use '../../mixins/typo' as *;
+
+:host {
+  display: flex;
+  flex-flow: column;
+  gap: spacing(2);
+}
 
 .ProductPage {
   display: grid;
   grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
   gap: spacing(4);
   align-items: start;
-  padding-block: spacing(3);
+  //padding-block: spacing(3);
 
   @include mq3max {
     grid-template-columns: 1fr;
@@ -24,7 +32,7 @@
   background: none;
 
   &:focus-visible {
-    outline: 2px solid #1d4ed8;
+    outline: 2px solid $oldYellow;
     outline-offset: 2px;
   }
 
@@ -49,7 +57,7 @@
 }
 
 .ProductPageZoomHint {
-  @include caption(#ffffff);
+  @include caption(white);
 
   position: absolute;
   right: spacing(1.5);
@@ -68,6 +76,10 @@
   display: flex;
   flex-direction: column;
   gap: spacing(1);
+
+  padding: spacing(2);
+  background: white;
+  border-radius: 1rem;
 }
 
 .ProductPageCategory {
@@ -94,7 +106,7 @@
 
   margin: spacing(1) 0 0;
   font-size: 1.5rem;
-  color: #1d4ed8;
+  color: $oldYellow;
 }
 
 .ProductPageZoomOverlay {
@@ -143,7 +155,7 @@
   border: none;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.15);
-  color: #ffffff;
+  color: white;
   cursor: pointer;
 
   &:hover {

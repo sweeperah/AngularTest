@@ -4,3 +4,15 @@ $space: 8px;
 @function spacing($multiplier) {
   @return ($multiplier * $space);
 }
+
+// colors
+$oldYellow: rgb(200, 175, 85);
+$lightGrey: rgb(102, 102, 102);
+$midGrey: rgb(51, 51, 51);
+
+:host {
+  --oldYellow: rgb(200, 175, 85);
+  --midGrey: rgb(51, 51, 51);
+
+  --headerHeight: 40px;
+}

@@ -1,0 +1,7 @@
+@use '../../mixins/misc' as *;
+
+.Section {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--gap) * #{spacing(1)});
+}

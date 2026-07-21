@@ -1,5 +1,8 @@
+@use './misc' as *;
+
 // Typography
-$typo-color-default: #333333;
+$typo-color-default: $midGrey;
+
 $font-title: 'Playfair Display', serif;
 $font-body: 'Source Sans 3', sans-serif;
 

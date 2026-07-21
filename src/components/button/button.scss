@@ -1,8 +1,12 @@
-button {
+@use '../../mixins/misc' as *;
+
+.btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+
+  position: relative;
   padding: 0.625rem 1.25rem;
   border-radius: 0.5rem;
   border: 1px solid transparent;
@@ -13,6 +17,25 @@ button {
     background-color 250ms,
     color 250ms,
     border-color 250ms;
+
+  &.icon {
+    padding: 0;
+    border-radius: 999px;
+    width: var(--size, spacing(4));
+    height: var(--size, spacing(4));
+  }
+
+  &Inner {
+    display: flex;
+
+    .icon & {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+    }
+  }
 
   &:disabled {
     cursor: not-allowed;

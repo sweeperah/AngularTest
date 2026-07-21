@@ -1,0 +1,20 @@
+@use '../../../mixins/misc' as *;
+@use '../../../mixins/typo' as *;
+
+.SectionTitle {
+  display: flex;
+  flex-direction: column;
+  gap: spacing(0.5);
+}
+
+.SectionTitleHeading {
+  @include smallTitle();
+
+  margin: 0;
+}
+
+.SectionTitleDescription {
+  @include defaultText();
+
+  margin: 0;
+}

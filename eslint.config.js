@@ -38,6 +38,7 @@ export default defineConfig([
         },
       ],
       '@stylistic/block-spacing': ['error'],
+      '@stylistic/brace-style': ['error', '1tbs', { allowSingleLine: true }],
     },
   },
   {

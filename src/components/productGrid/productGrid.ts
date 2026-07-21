@@ -18,13 +18,7 @@ export interface Product {
     <div class="ProductGrid">
       @for (product of products(); track product.id) {
         <a class="ProductGridLink" [routerLink]="['/product', product.id]">
-          <ProductCard
-            [name]="product.name"
-            [category]="product.category"
-            [price]="product.price"
-            [rating]="product.rating"
-            [imageSeed]="product.imageSeed"
-          />
+          <ProductCard [product]="product" />
         </a>
       }
     </div>

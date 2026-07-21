@@ -1,6 +1,7 @@
-import { Component, computed, input } from '@angular/core'
+import { Component, computed, Input } from '@angular/core'
 import { CurrencyPipe, NgOptimizedImage } from '@angular/common'
 import { GoogleSymbol } from '../../googleSymbol/googleSymbol'
+import { Product } from '../productGrid'
 
 @Component({
   selector: 'ProductCard',
@@ -8,22 +9,22 @@ import { GoogleSymbol } from '../../googleSymbol/googleSymbol'
   template: `
     <article class="ProductCard">
       <div class="ProductCardMedia">
-        <img [ngSrc]="imageUrl()" width="480" height="360" [alt]="name()" />
+        <img [ngSrc]="imageUrl()" width="480" height="360" alt="{{ product.name }}" />
       </div>
 
       <div class="ProductCardBody">
-        <span class="ProductCardCategory">{{ category() }}</span>
+        <span class="ProductCardCategory">{{ product.category }}</span>
 
-        <h3 class="ProductCardName">{{ name() }}</h3>
+        <h3 class="ProductCardName">{{ product.name }}</h3>
 
-        <div class="ProductCardRating" role="img" [attr.aria-label]="rating() + ' out of 5 stars'">
+        <div class="ProductCardRating" role="img" [attr.aria-label]="product.rating + ' out of 5 stars'">
           @for (filled of ratingStars(); track $index) {
             <GoogleSymbol name="star" [fill]="filled" [size]="16" />
           }
         </div>
 
         <div class="ProductCardFooter">
-          <span class="ProductCardPrice">{{ price() | currency }}</span>
+          <span class="ProductCardPrice">{{ product.price | currency }}</span>
         </div>
       </div>
     </article>
@@ -31,15 +32,11 @@ import { GoogleSymbol } from '../../googleSymbol/googleSymbol'
   styleUrl: './productCard.scss',
 })
 export class ProductCard {
-  readonly name = input.required<string>()
-  readonly price = input.required<number>()
-  readonly category = input('')
-  readonly rating = input(0)
-  readonly imageSeed = input('')
+  @Input() product!: Product
 
   protected readonly imageUrl = computed(
-    () => `https://picsum.photos/seed/${encodeURIComponent(this.imageSeed() || this.name())}/480/360`,
+    () => `https://picsum.photos/seed/${encodeURIComponent(this.product.imageSeed || this.product.name)}/480/360`,
   )
 
-  protected readonly ratingStars = computed(() => Array.from({ length: 5 }, (_, i) => i < Math.round(this.rating())))
+  protected readonly ratingStars = computed(() => Array.from({ length: 5 }, (_, i) => i < Math.round(this.product.rating)))
 }

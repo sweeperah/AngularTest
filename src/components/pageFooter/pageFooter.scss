@@ -2,38 +2,36 @@
 @use '../../mixins/typo' as *;
 
 :host {
-  position: fixed;
-  top: 0;
   width: 100%;
-  z-index: 1000;
 }
 
-.pageHeader {
+.pageFooter {
   display: flex;
   justify-content: center;
   align-items: center;
 
-  height: var(--headerHeight);
-  background: var(--oldYellow);
+  height: 40px;
+  background: var(--midGrey);
+  color: var(--oldYellow);
 
   &Inner {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: spacing(2);
     align-items: center;
   }
 
   .logo {
-    @include smallTitle();
+    @include smallTitle($oldYellow);
 
     display: flex;
     align-items: center;
     gap: spacing(1);
-
-    text-decoration: none;
   }
 
-  .phrase {
-    justify-self: center;
+  .links {
+    display: flex;
+    justify-self: right;
+    gap: spacing(1);
   }
 }
