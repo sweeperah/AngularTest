@@ -14,6 +14,8 @@
   background: var(--midGrey);
   color: var(--oldYellow);
 
+  position: relative;
+
   &Inner {
     display: grid;
     grid-template-columns: 1fr 1fr;

@@ -1,6 +1,6 @@
 @use '../../mixins/misc' as *;
 
-.CustomContent {
+.CustomLayout {
   display: grid;
   grid-template: '. content .' 1fr / 1fr 10fr 1fr;
   row-gap: spacing(3);
@@ -17,6 +17,6 @@
 
     display: flex;
     flex-flow: column;
-    gap: spacing(3);
+    gap: spacing(4);
   }
 }

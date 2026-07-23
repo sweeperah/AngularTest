@@ -1,14 +1,15 @@
 import { Component, computed, effect, ElementRef, inject, input, signal, viewChild } from '@angular/core'
 import { CurrencyPipe, NgOptimizedImage } from '@angular/common'
 import { GoogleSymbol } from '../../components/googleSymbol/googleSymbol'
+import { ErrorState } from '../../components/errorState/errorState'
 import { ProductService } from '../../services/product.service'
 
 @Component({
   selector: 'ProductPage',
-  imports: [CurrencyPipe, NgOptimizedImage, GoogleSymbol],
+  imports: [CurrencyPipe, NgOptimizedImage, GoogleSymbol, ErrorState],
   template: `
     @if (product(); as product) {
-      <div class="ProductPage">
+      <article class="ProductPage">
         <button
           #zoomTrigger
           type="button"
@@ -38,7 +39,7 @@ import { ProductService } from '../../services/product.service'
 
           <p class="ProductPagePrice">{{ product.price | currency }}</p>
         </div>
-      </div>
+      </article>
 
       @if (isZoomed()) {
         <div class="ProductPageZoomOverlay">
@@ -58,7 +59,7 @@ import { ProductService } from '../../services/product.service'
               type="button"
               class="ProductPageZoomClose"
               (click)="closeZoom()"
-              aria-label="Close zoomed image"
+              [attr.aria-label]="'Close zoomed image of ' + product.name"
             >
               <GoogleSymbol name="close" [size]="28" />
             </button>
@@ -66,7 +67,7 @@ import { ProductService } from '../../services/product.service'
         </div>
       }
     } @else {
-      <p>Product not found.</p>
+      <ErrorState [variant]="'productNotFound'" actionLabel="Back to shop" actionLink="/" />
     }
   `,
   styleUrl: './product.scss',

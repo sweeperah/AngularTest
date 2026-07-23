@@ -1,0 +1,113 @@
+@use '../../mixins/misc' as *;
+@use '../../mixins/typo' as *;
+
+:host {
+  display: block;
+}
+
+.ErrorState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: spacing(1.5);
+  padding: spacing(4) spacing(2);
+}
+
+.ErrorStateArt {
+  width: 100%;
+  max-width: 280px;
+}
+
+.ErrorStateSvg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ErrorStateFloat {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: errorStateFloat 3.2s ease-in-out infinite;
+
+  &Slow {
+    animation-duration: 4.6s;
+    animation-delay: 0.6s;
+  }
+}
+
+.ErrorStateCompass {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: errorStateSpin 6s ease-in-out infinite;
+}
+
+@keyframes errorStateFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes errorStateSpin {
+  0%,
+  100% {
+    transform: rotate(-8deg);
+  }
+
+  50% {
+    transform: rotate(8deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ErrorStateFloat,
+  .ErrorStateCompass {
+    animation: none;
+  }
+}
+
+.ErrorStateTitle {
+  @include smallTitle();
+
+  margin: 0;
+}
+
+.ErrorStateDescription {
+  @include defaultText($lightGrey);
+
+  max-width: 32rem;
+  margin: 0;
+}
+
+.ErrorStateActions {
+  display: flex;
+  gap: spacing(1);
+  margin-top: spacing(1);
+}
+
+.ErrorStateAction {
+  @include buttonText(white);
+
+  display: inline-flex;
+  align-items: center;
+  gap: spacing(0.5);
+  padding: spacing(1) spacing(2);
+  border-radius: 0.5rem;
+  background: $oldYellow;
+  text-decoration: none;
+  transition: background-color 200ms ease;
+
+  &:hover {
+    background: rgb(170, 149, 72);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $midGrey;
+    outline-offset: 2px;
+  }
+}

@@ -8,11 +8,11 @@ import { ProductService } from '../../services/product.service'
   selector: 'Home',
   imports: [ProductGrid, Section, SearchBox],
   template: `
-    <Section [title]="'Most Viewed Products'" [description]="'Check out our most popular products below!'" gap="4">
+    <SectionComp [title]="'Most Viewed Products'" [description]="'Check out our most popular products below!'" gap="3">
       <SearchBox (searchSubmit)="onSearch($event)" />
 
       <ProductGrid [products]="products()" />
-    </Section>
+    </SectionComp>
   `,
 })
 export default class Home {

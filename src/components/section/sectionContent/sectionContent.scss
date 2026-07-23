@@ -1,3 +1,7 @@
+@use '../../../mixins/misc' as *;
+
 .SectionContent {
-  display: block;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: var(--sectionGap, spacing(4));
 }

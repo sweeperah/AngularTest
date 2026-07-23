@@ -3,7 +3,7 @@ import { SectionContent } from './sectionContent/sectionContent'
 import { SectionTitle } from './sectionTitle/sectionTitle'
 
 @Component({
-  selector: 'Section',
+  selector: 'SectionComp',
   imports: [SectionContent, SectionTitle],
   template: `
     <section class="Section" [style.--gap]="gap()">

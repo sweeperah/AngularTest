@@ -3,8 +3,8 @@ import { Component, input } from '@angular/core'
 @Component({
   selector: 'CustomLayout',
   imports: [],
-  template: ` <div class="CustomContent" [style.--max-width.px]="maxWidth()">
-    <div class="CustomContentInner">
+  template: ` <div class="CustomLayout" [style.--max-width.px]="maxWidth()">
+    <div class="CustomLayoutInner">
       <ng-content />
     </div>
   </div>`,
