@@ -1,0 +1,36 @@
+@use '../../../mixins/misc' as *;
+@use '../../../mixins/forms' as *;
+
+.Select {
+  display: flex;
+  flex-direction: column;
+  gap: spacing(0.5);
+}
+
+.SelectLabel {
+  @include fieldLabel();
+}
+
+.SelectField {
+  @include fieldControl();
+
+  appearance: none;
+  padding-right: spacing(4);
+  background-image: linear-gradient(45deg, transparent 50%, $midGrey 50%),
+    linear-gradient(135deg, $midGrey 50%, transparent 50%);
+  background-position:
+    calc(100% - #{spacing(1.75)}) center,
+    calc(100% - #{spacing(1)}) center;
+  background-size:
+    6px 6px,
+    6px 6px;
+  background-repeat: no-repeat;
+
+  &:disabled {
+    background-image: none;
+  }
+}
+
+.SelectError {
+  @include fieldError();
+}

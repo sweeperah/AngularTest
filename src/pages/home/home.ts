@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core'
-import { ProductGrid } from '../../components/productGrid/productGrid'
+import { ProductGrid } from '../../components/product/productGrid/productGrid'
 import { Section } from '../../components/section/section'
 import { SearchBox } from '../../components/form/searchBox/searchBox'
 import { ProductService } from '../../services/product.service'

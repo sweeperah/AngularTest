@@ -10,24 +10,23 @@
 
 .ProductPage {
   display: grid;
-  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  grid-template: 'img details' 1fr 'img form' 1fr / minmax(0, 3fr) minmax(0, 2fr);
   gap: spacing(4);
   align-items: start;
-  //padding-block: spacing(3);
 
-  @include mq3max {
-    grid-template-columns: 1fr;
+  @include mq2max {
+    grid-template: 'img' 'details' 'form' / 1fr;
   }
 }
 
 .ProductPageMedia {
+  grid-area: img;
+
   position: relative;
-  display: block;
+  display: inline-flex;
   width: 100%;
   padding: 0;
   border: none;
-  border-radius: 1rem;
-  overflow: hidden;
   cursor: zoom-in;
   background: none;
 
@@ -54,59 +53,22 @@
   &:focus-visible .ProductPageZoomHint {
     opacity: 1;
   }
-}
 
-.ProductPageZoomHint {
-  @include caption(white);
+  .ProductPageZoomHint {
+    @include caption(white);
 
-  position: absolute;
-  right: spacing(1.5);
-  bottom: spacing(1.5);
-  display: flex;
-  align-items: center;
-  gap: spacing(0.5);
-  padding: spacing(0.75) spacing(1.25);
-  border-radius: 999px;
-  background: rgba(0, 0, 0, 0.6);
-  opacity: 0;
-  transition: opacity 200ms ease;
-}
-
-.ProductPageDetails {
-  display: flex;
-  flex-direction: column;
-  gap: spacing(1);
-
-  padding: spacing(2);
-  background: white;
-  border-radius: 1rem;
-}
-
-.ProductPageCategory {
-  @include caption();
-
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
-.ProductPageName {
-  @include bigTitle();
-
-  margin: 0;
-}
-
-.ProductPageRating {
-  display: flex;
-  gap: spacing(0.25);
-  margin-top: spacing(1);
-}
-
-.ProductPagePrice {
-  @include buttonText();
-
-  margin: spacing(1) 0 0;
-  font-size: 1.5rem;
-  color: $oldYellow;
+    position: absolute;
+    right: spacing(1.5);
+    bottom: spacing(1.5);
+    display: flex;
+    align-items: center;
+    gap: spacing(0.5);
+    padding: spacing(0.75) spacing(1.25);
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    transition: opacity 200ms ease;
+  }
 }
 
 .ProductPageZoomOverlay {
@@ -117,53 +79,112 @@
   align-items: center;
   justify-content: center;
   padding: spacing(3);
-}
 
-.ProductPageZoomBackdrop {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.85);
-}
+  .ProductPageZoomBackdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
 
-.ProductPageZoomDialog {
-  position: relative;
-  z-index: 1;
-  max-width: 100%;
-  max-height: 100%;
+    cursor: pointer;
+  }
 
-  img {
-    display: block;
+  .ProductPageZoomDialog {
+    position: relative;
+    z-index: 1;
     max-width: 100%;
     max-height: 100%;
-    width: auto;
-    height: auto;
-    border-radius: 0.5rem;
-    object-fit: contain;
+
+    img {
+      display: block;
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      border-radius: 0.5rem;
+      object-fit: contain;
+    }
+  }
+
+  .ProductPageZoomClose {
+    position: absolute;
+    top: spacing(2);
+    right: spacing(2);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: none;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    &:focus-visible {
+      outline: 2px solid #ffffff;
+      outline-offset: 2px;
+    }
   }
 }
 
-.ProductPageZoomClose {
-  position: absolute;
-  top: spacing(2);
-  right: spacing(2);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  padding: 0;
-  border: none;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.15);
-  color: white;
-  cursor: pointer;
+.ProductPageDetails {
+  grid-area: details;
 
-  &:hover {
-    background: rgba(255, 255, 255, 0.25);
+  //display: flex;
+  //flex-direction: column;
+  //gap: spacing(1);
+
+  .ProductPageCategory {
+    @include caption();
+
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
   }
 
-  &:focus-visible {
-    outline: 2px solid #ffffff;
-    outline-offset: 2px;
+  .ProductPageName {
+    @include bigTitle();
+
+    margin: 0;
+  }
+
+  .ProductPageRating {
+    display: flex;
+    gap: spacing(0.25);
+    margin-top: spacing(1);
+  }
+
+  .ProductPagePrice {
+    @include buttonText();
+
+    margin: spacing(1) 0 0;
+    font-size: 1.5rem;
+    color: $oldYellow;
+  }
+}
+
+.ProductPageForm {
+  grid-area: form;
+
+  form {
+    display: grid;
+    grid-template: 'first last' 'mail mail' / 1fr 1fr;
+    gap: spacing(2);
+
+    InputComp[formcontrolname="firstName"] {
+      grid-area: first;
+    }
+
+    InputComp[formcontrolname="lastName"] {
+      grid-area: last;
+    }
+
+    InputComp[formcontrolname="email"] {
+      grid-area: mail;
+    }
   }
 }

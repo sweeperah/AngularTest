@@ -8,6 +8,7 @@ export interface Product {
   price: number
   rating: number
   imageSeed: string
+  isDirectPay: boolean
 }
 
 @Service()

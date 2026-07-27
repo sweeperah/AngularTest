@@ -1,0 +1,22 @@
+@use '../../../mixins/misc' as *;
+@use '../../../mixins/forms' as *;
+
+.Textarea {
+  display: flex;
+  flex-direction: column;
+  gap: spacing(0.5);
+}
+
+.TextareaLabel {
+  @include fieldLabel();
+}
+
+.TextareaField {
+  @include fieldControl();
+
+  resize: vertical;
+}
+
+.TextareaError {
+  @include fieldError();
+}

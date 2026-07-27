@@ -3,10 +3,13 @@ import { CurrencyPipe, NgOptimizedImage } from '@angular/common'
 import { GoogleSymbol } from '../../components/googleSymbol/googleSymbol'
 import { ErrorState } from '../../components/errorState/errorState'
 import { ProductService } from '../../services/product.service'
+import { Input } from '../../components/form/input/input'
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
+import { Card } from '../../components/card/card'
 
 @Component({
   selector: 'ProductPage',
-  imports: [CurrencyPipe, NgOptimizedImage, GoogleSymbol, ErrorState],
+  imports: [CurrencyPipe, NgOptimizedImage, GoogleSymbol, ErrorState, Input, ReactiveFormsModule, Card],
   template: `
     @if (product(); as product) {
       <article class="ProductPage">
@@ -17,16 +20,18 @@ import { ProductService } from '../../services/product.service'
           (click)="openZoom()"
           [attr.aria-label]="'Zoom image of ' + product.name"
         >
-          <img [ngSrc]="imageUrl()" width="800" height="600" [alt]="product.name" />
+          <Card [padding]="0">
+            <img [ngSrc]="imageUrl()" width="800" height="600" [alt]="product.name" />
 
-          <span class="ProductPageZoomHint">
-            <GoogleSymbol name="zoom_in" [size]="20" />
+            <span class="ProductPageZoomHint">
+              <GoogleSymbol name="zoom_in" [size]="20" />
 
-            Click to zoom
-          </span>
+              Click to zoom
+            </span>
+          </Card>
         </button>
 
-        <div class="ProductPageDetails">
+        <Card class="ProductPageDetails" [gap]="1">
           <span class="ProductPageCategory">{{ product.category }}</span>
 
           <h1 class="ProductPageName">{{ product.name }}</h1>
@@ -38,7 +43,21 @@ import { ProductService } from '../../services/product.service'
           </div>
 
           <p class="ProductPagePrice">{{ product.price | currency }}</p>
-        </div>
+
+          <hr />
+
+
+        </Card>
+
+        <Card class="ProductPageForm">
+          <form [formGroup]="applyForm">
+            <InputComp type="text" label="First Name" formControlName="firstName" />
+
+            <InputComp type="text" label="Last Name" formControlName="lastName" />
+
+            <InputComp type="email" label="Email" formControlName="email" />
+          </form>
+        </Card>
       </article>
 
       @if (isZoomed()) {
@@ -95,6 +114,12 @@ export default class ProductPage {
 
   private readonly zoomTrigger = viewChild<ElementRef<HTMLButtonElement>>('zoomTrigger')
   private readonly closeButton = viewChild<ElementRef<HTMLButtonElement>>('closeButton')
+
+  applyForm = new FormGroup({
+    firstName: new FormControl(''),
+    lastName: new FormControl(''),
+    email: new FormControl(''),
+  })
 
   constructor() {
     effect(() => {

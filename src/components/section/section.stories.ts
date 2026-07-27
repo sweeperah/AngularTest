@@ -5,7 +5,7 @@ import { SectionTitle } from './sectionTitle/sectionTitle'
 import { SectionContent } from './sectionContent/sectionContent'
 
 const meta: Meta<Section> = {
-  title: 'Components / Section',
+  title: 'Components / Section / Section',
   component: Section,
   tags: ['autodocs'],
   decorators: [

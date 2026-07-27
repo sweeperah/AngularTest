@@ -1,0 +1,20 @@
+@use '../../../mixins/misc' as *;
+@use '../../../mixins/forms' as *;
+
+.Input {
+  display: flex;
+  flex-direction: column;
+  gap: spacing(0.5);
+}
+
+.InputLabel {
+  @include fieldLabel();
+}
+
+.InputField {
+  @include fieldControl();
+}
+
+.InputError {
+  @include fieldError();
+}
