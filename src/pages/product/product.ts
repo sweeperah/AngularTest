@@ -1,17 +1,21 @@
 import { Component, computed, effect, ElementRef, inject, input, signal, viewChild } from '@angular/core'
+import { rxResource } from '@angular/core/rxjs-interop'
 import { CurrencyPipe, NgOptimizedImage } from '@angular/common'
 import { GoogleSymbol } from '../../components/googleSymbol/googleSymbol'
 import { ErrorState } from '../../components/errorState/errorState'
 import { ProductService } from '../../services/product.service'
 import { Input } from '../../components/form/input/input'
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 import { Card } from '../../components/card/card'
+import { Button } from '../../components/button/button'
 
 @Component({
   selector: 'ProductPage',
-  imports: [CurrencyPipe, NgOptimizedImage, GoogleSymbol, ErrorState, Input, ReactiveFormsModule, Card],
+  imports: [CurrencyPipe, NgOptimizedImage, GoogleSymbol, ErrorState, Input, ReactiveFormsModule, Card, Button],
   template: `
-    @if (product(); as product) {
+    @if (isLoading()) {
+      <p class="ProductPageLoading">Loading product…</p>
+    } @else if (product(); as product) {
       <article class="ProductPage">
         <button
           #zoomTrigger
@@ -46,16 +50,18 @@ import { Card } from '../../components/card/card'
 
           <hr />
 
-
+          <div>Direct Pay: {{ product.isDirectPay ? 'Yes' : 'No' }}</div>
         </Card>
 
         <Card class="ProductPageForm">
-          <form [formGroup]="applyForm">
-            <InputComp type="text" label="First Name" formControlName="firstName" />
+          <form [formGroup]="applyForm" (ngSubmit)="onSubmit()">
+            <InputComp type="text" label="First Name" formControlName="firstName" [isRequired]="true" />
 
-            <InputComp type="text" label="Last Name" formControlName="lastName" />
+            <InputComp type="text" label="Last Name" formControlName="lastName" [isRequired]="true" />
 
-            <InputComp type="email" label="Email" formControlName="email" />
+            <InputComp type="email" label="Email" formControlName="email" [isRequired]="true" />
+
+            <ButtonComp type="submit" [disabled]="applyForm.invalid">Apply</ButtonComp>
           </form>
         </Card>
       </article>
@@ -96,7 +102,13 @@ export default class ProductPage {
 
   readonly id = input('')
 
-  protected readonly product = computed(() => this.productService.getProduct(this.id()))
+  private readonly productResource = rxResource({
+    params: () => this.id(),
+    stream: ({ params }) => this.productService.getProduct(params),
+  })
+
+  protected readonly product = computed(() => this.productResource.value())
+  protected readonly isLoading = computed(() => this.productResource.isLoading())
 
   protected readonly ratingStars = computed(() => {
     const rating = this.product()?.rating ?? 0
@@ -116,9 +128,9 @@ export default class ProductPage {
   private readonly closeButton = viewChild<ElementRef<HTMLButtonElement>>('closeButton')
 
   applyForm = new FormGroup({
-    firstName: new FormControl(''),
-    lastName: new FormControl(''),
-    email: new FormControl(''),
+    firstName: new FormControl('', Validators.required),
+    lastName: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.email]),
   })
 
   constructor() {
@@ -136,5 +148,9 @@ export default class ProductPage {
   protected closeZoom(): void {
     this.isZoomed.set(false)
     this.zoomTrigger()?.nativeElement.focus()
+  }
+
+  protected onSubmit(): void {
+    console.log(this.applyForm.value)
   }
 }

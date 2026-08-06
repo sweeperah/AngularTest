@@ -14,7 +14,7 @@ const meta: Meta<Select> = {
       { label: 'Spain', value: 'es' },
     ],
     disabled: false,
-    required: false,
+    isRequired: false,
     error: null,
   },
 }

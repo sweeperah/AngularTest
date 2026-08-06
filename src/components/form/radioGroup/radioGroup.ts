@@ -1,5 +1,6 @@
-import { Component, input, model } from '@angular/core'
-import { uniqueId } from '../uniqueId'
+import { Component, forwardRef, input, model, signal } from '@angular/core'
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms'
+import { uniqueId } from '../../../helpers/uniqueId'
 
 export interface RadioOption {
   label: string
@@ -9,8 +10,19 @@ export interface RadioOption {
 @Component({
   selector: 'RadioGroup',
   imports: [],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => RadioGroup),
+      multi: true,
+    },
+  ],
   template: `
-    <fieldset class="RadioGroup" [disabled]="disabled()" [attr.aria-describedby]="error() ? errorId : null">
+    <fieldset
+      class="RadioGroup"
+      [disabled]="disabled() || formDisabled()"
+      [attr.aria-describedby]="error() ? errorId : null"
+    >
       <legend class="RadioGroupLegend">{{ label() }}</legend>
 
       @for (option of options(); track option.value) {
@@ -21,7 +33,8 @@ export interface RadioOption {
             [name]="name"
             [value]="option.value"
             [checked]="option.value === value()"
-            (change)="value.set(option.value)"
+            (change)="onChangeValue(option.value)"
+            (blur)="onTouched()"
           />
 
           <span class="RadioGroupOptionLabel">{{ option.label }}</span>
@@ -35,7 +48,7 @@ export interface RadioOption {
   `,
   styleUrl: './radioGroup.scss',
 })
-export class RadioGroup {
+export class RadioGroup implements ControlValueAccessor {
   readonly label = input('')
   readonly options = input<RadioOption[]>([])
   readonly disabled = input(false)
@@ -43,6 +56,32 @@ export class RadioGroup {
 
   readonly value = model('')
 
+  protected readonly formDisabled = signal(false)
+
   protected readonly name = uniqueId('radioGroup')
   protected readonly errorId = `${this.name}-error`
+
+  private onChange: (value: string) => void = () => {}
+  protected onTouched: () => void = () => {}
+
+  protected onChangeValue(value: string): void {
+    this.value.set(value)
+    this.onChange(value)
+  }
+
+  writeValue(value: string): void {
+    this.value.set(value ?? '')
+  }
+
+  registerOnChange(fn: (value: string) => void): void {
+    this.onChange = fn
+  }
+
+  registerOnTouched(fn: () => void): void {
+    this.onTouched = fn
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.formDisabled.set(isDisabled)
+  }
 }

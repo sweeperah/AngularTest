@@ -1,4 +1,5 @@
-import { Component, inject, signal } from '@angular/core'
+import { Component, computed, inject, signal } from '@angular/core'
+import { rxResource } from '@angular/core/rxjs-interop'
 import { ProductGrid } from '../../components/product/productGrid/productGrid'
 import { Section } from '../../components/section/section'
 import { SearchBox } from '../../components/form/searchBox/searchBox'
@@ -20,9 +21,17 @@ export default class Home {
 
   readonly title = 'Most Viewed Products'
 
-  protected readonly products = signal(this.productService.getProducts())
+  private readonly searchQuery = signal('')
+
+  private readonly productsResource = rxResource({
+    params: () => this.searchQuery(),
+    stream: ({ params }) =>
+      params ? this.productService.searchProducts(params) : this.productService.getProducts(),
+  })
+
+  protected readonly products = computed(() => this.productsResource.value() ?? [])
 
   readonly onSearch = (search: string): void => {
-    this.products.set(this.productService.searchProducts(search))
+    this.searchQuery.set(search)
   }
 }

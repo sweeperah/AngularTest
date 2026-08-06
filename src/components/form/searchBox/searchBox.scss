@@ -1,3 +1,4 @@
+@use 'sass:color';
 @use '../../../mixins/misc' as *;
 @use '../../../mixins/typo' as *;
 
@@ -51,7 +52,7 @@
     &:hover {
       --size: 44px;
 
-      background: lighten($oldYellow, 10%);
+      background: color.adjust($oldYellow, $lightness: 10%);
       border-radius: 8px;
       border-color: $lightGrey;
       color: $typo-color-default;

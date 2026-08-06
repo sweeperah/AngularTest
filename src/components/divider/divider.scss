@@ -1,0 +1,18 @@
+@use '../../mixins/misc' as *;
+
+:host {
+  display: block;
+}
+
+.Divider {
+  border: 0;
+  border-top: 1px solid $lightGrey;
+  width: 100%;
+
+  &--vertical {
+    border-top: 0;
+    border-left: 1px solid $lightGrey;
+    width: 0;
+    height: 100%;
+  }
+}

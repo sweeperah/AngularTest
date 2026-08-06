@@ -10,7 +10,7 @@ const meta: Meta<Textarea> = {
     placeholder: 'Write your message...',
     rows: 4,
     disabled: false,
-    required: false,
+    isRequired: false,
     error: null,
   },
 }

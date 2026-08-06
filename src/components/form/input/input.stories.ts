@@ -16,7 +16,7 @@ const meta: Meta<Input> = {
     placeholder: 'you@example.com',
     type: 'email',
     disabled: false,
-    required: false,
+    isRequired: false,
     error: null,
   },
 }
@@ -28,7 +28,7 @@ export const Default: Story = {}
 
 export const Required: Story = {
   args: {
-    required: true,
+    isRequired: true,
   },
 }
 
