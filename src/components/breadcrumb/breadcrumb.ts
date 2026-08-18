@@ -2,7 +2,7 @@ import { Component, computed, inject } from '@angular/core'
 import { toSignal } from '@angular/core/rxjs-interop'
 import { NavigationEnd, Router, RouterLink } from '@angular/router'
 import { filter, map, startWith } from 'rxjs'
-import { ProductService } from '../../services/product.service'
+import { dashCaseToWords } from '../../helpers/dashCaseToWords'
 
 interface Crumb {
   label: string
@@ -33,7 +33,6 @@ interface Crumb {
 })
 export class Breadcrumb {
   private readonly router = inject(Router)
-  private readonly productService = inject(ProductService)
 
   private readonly url = toSignal(
     this.router.events.pipe(
@@ -59,9 +58,7 @@ export class Breadcrumb {
         continue
       }
 
-      const product = this.productService.getProduct(segment)
-
-      trail.push({ label: product ? product.name : segment, path })
+      trail.push({ label: dashCaseToWords(segment), path })
     }
 
     return trail

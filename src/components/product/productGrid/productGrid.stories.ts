@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/angular'
 import { ProductGrid } from './productGrid'
-import { PRODUCTS as products } from '../../services/product.data'
+import { PRODUCTS as products } from '../../../services/product.data'
 
 const meta: Meta<ProductGrid> = {
-  title: 'Components / ProductGrid',
+  title: 'Components / Product / ProductGrid',
   component: ProductGrid,
   tags: ['autodocs'],
   render: args => ({

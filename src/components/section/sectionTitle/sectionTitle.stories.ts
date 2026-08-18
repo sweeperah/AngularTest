@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular'
 import { SectionTitle } from './sectionTitle'
 
 const meta: Meta<SectionTitle> = {
-  title: 'Components / SectionTitle',
+  title: 'Components / Section / SectionTitle',
   component: SectionTitle,
   tags: ['autodocs'],
   render: args => ({

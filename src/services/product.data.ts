@@ -8,6 +8,7 @@ export const PRODUCTS: Product[] = [
     price: 249,
     rating: 4,
     imageSeed: 'aurora-lounge-chair',
+    isDirectPay: true,
   },
   {
     id: 'nimbus-table-lamp',
@@ -16,6 +17,7 @@ export const PRODUCTS: Product[] = [
     price: 89,
     rating: 5,
     imageSeed: 'nimbus-table-lamp',
+    isDirectPay: false,
   },
   {
     id: 'drift-ceramic-vase',
@@ -24,6 +26,7 @@ export const PRODUCTS: Product[] = [
     price: 34,
     rating: 3,
     imageSeed: 'drift-ceramic-vase',
+    isDirectPay: false,
   },
   {
     id: 'haven-throw-blanket',
@@ -32,6 +35,7 @@ export const PRODUCTS: Product[] = [
     price: 59,
     rating: 5,
     imageSeed: 'haven-throw-blanket',
+    isDirectPay: false,
   },
   {
     id: 'lumen-pendant-light',
@@ -40,6 +44,7 @@ export const PRODUCTS: Product[] = [
     price: 129,
     rating: 4,
     imageSeed: 'lumen-pendant-light',
+    isDirectPay: false,
   },
   {
     id: 'ridge-oak-shelf',
@@ -48,6 +53,7 @@ export const PRODUCTS: Product[] = [
     price: 179,
     rating: 4,
     imageSeed: 'ridge-oak-shelf',
+    isDirectPay: true,
   },
   {
     id: 'solace-linen-cushion',
@@ -56,6 +62,7 @@ export const PRODUCTS: Product[] = [
     price: 42,
     rating: 3,
     imageSeed: 'solace-linen-cushion',
+    isDirectPay: true,
   },
   {
     id: 'echo-wall-mirror',
@@ -64,6 +71,7 @@ export const PRODUCTS: Product[] = [
     price: 149,
     rating: 5,
     imageSeed: 'echo-wall-mirror',
+    isDirectPay: false,
   },
   {
     id: 'juniper-storage-basket',
@@ -72,6 +80,7 @@ export const PRODUCTS: Product[] = [
     price: 45,
     rating: 4,
     imageSeed: 'juniper-storage-basket',
+    isDirectPay: false,
   },
   {
     id: 'cascade-floor-rug',
@@ -80,5 +89,6 @@ export const PRODUCTS: Product[] = [
     price: 219,
     rating: 5,
     imageSeed: 'cascade-floor-rug',
+    isDirectPay: true,
   },
 ]

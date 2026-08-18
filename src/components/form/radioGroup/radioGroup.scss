@@ -1,0 +1,56 @@
+@use '../../../mixins/misc' as *;
+@use '../../../mixins/typo' as *;
+@use '../../../mixins/forms' as *;
+
+.RadioGroup {
+  display: flex;
+  flex-direction: column;
+  gap: spacing(1);
+  border: 0;
+  padding: 0;
+  margin: 0;
+
+  &:disabled,
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+.RadioGroupLegend {
+  @include fieldLabel();
+
+  padding: 0;
+}
+
+.RadioGroupOption {
+  display: flex;
+  align-items: center;
+  gap: spacing(1);
+  cursor: pointer;
+
+  .RadioGroup:disabled &,
+  .RadioGroup[disabled] & {
+    cursor: not-allowed;
+  }
+}
+
+.RadioGroupInput {
+  width: spacing(2);
+  height: spacing(2);
+  accent-color: $oldYellow;
+  cursor: inherit;
+
+  &:focus-visible {
+    outline: 2px solid $oldYellow;
+    outline-offset: 2px;
+  }
+}
+
+.RadioGroupOptionLabel {
+  @include defaultText();
+}
+
+.RadioGroupError {
+  @include fieldError();
+}

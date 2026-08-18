@@ -11,6 +11,7 @@
   max-width: var(--max-width, 1900px);
   width: 100vw;
   padding-inline: spacing(2);
+  box-sizing: border-box;
 
   &Inner {
     grid-area: content;

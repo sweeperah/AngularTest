@@ -9,10 +9,15 @@ $space: 8px;
 $oldYellow: rgb(200, 175, 85);
 $lightGrey: rgb(102, 102, 102);
 $midGrey: rgb(51, 51, 51);
+$errorRed: rgb(178, 58, 58);
 
 :host {
-  --oldYellow: rgb(200, 175, 85);
-  --midGrey: rgb(51, 51, 51);
+  --space: #{$space};
 
-  --headerHeight: 40px;
+  --oldYellow: #{$oldYellow};
+  --lightGrey: #{$lightGrey};
+  --midGrey: #{$midGrey};
+  --errorRed: #{$errorRed};
+
+  --headerHeight: #{spacing(5)};
 }

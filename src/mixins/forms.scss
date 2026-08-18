@@ -1,0 +1,44 @@
+@use './misc' as *;
+@use './typo' as *;
+
+@mixin fieldLabel {
+  @include caption();
+
+  font-weight: 600;
+}
+
+@mixin fieldControl {
+  @include defaultText();
+
+  width: 100%;
+  border: 1px solid $lightGrey;
+  border-radius: 8px;
+  padding: spacing(1) spacing(1.5);
+  background: white;
+  transition: border-color 150ms;
+  box-sizing: border-box;
+
+  &:hover:not(:disabled) {
+    border-color: $midGrey;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $oldYellow;
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  &[aria-invalid='true'] {
+    border-color: $errorRed;
+  }
+}
+
+@mixin fieldError {
+  @include caption($errorRed);
+
+  margin: 0;
+}

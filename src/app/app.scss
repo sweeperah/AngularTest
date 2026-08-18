@@ -7,10 +7,13 @@
   align-items: center;
   gap: spacing(3);
 
+  --calc1: #{spacing(1)};
+  --calc2: #{spacing(10)};
+
   position: relative;
-  margin-top: calc(var(--headerHeight) + #{spacing(1)});
-  padding-bottom: spacing(4);
-  min-height: 100vh;
+  margin-top: calc(var(--headerHeight) + var(--calc1));
+  padding-bottom: var(--calc2);
+  min-height: calc(100vh - (var(--headerHeight) + var(--calc1) + var(--calc2)));
 
   &Content {
     display: grid;
