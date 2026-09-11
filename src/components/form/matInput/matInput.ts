@@ -1,11 +1,11 @@
-import { Component, forwardRef, input, model, signal } from '@angular/core'
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms'
+import { Component, effect, forwardRef, input, model } from '@angular/core'
+import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
 
 @Component({
   selector: 'MatInput',
-  imports: [MatFormFieldModule, MatInputModule],
+  imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -19,13 +19,11 @@ import { MatInputModule } from '@angular/material/input'
 
       <input
         matInput
+        [formControl]="control"
         [type]="type()"
         [name]="name()"
         [placeholder]="placeholder()"
-        [disabled]="disabled() || formDisabled()"
         [required]="isRequired()"
-        [value]="value()"
-        (input)="onInput($any($event.target).value)"
         (blur)="onTouched()"
       />
 
@@ -47,18 +45,40 @@ export class MatInput implements ControlValueAccessor {
 
   readonly value = model('')
 
-  protected readonly formDisabled = signal(false)
+  protected readonly control = new FormControl('', { nonNullable: true })
 
   private onChange: (value: string) => void = () => {}
   protected onTouched: () => void = () => {}
 
-  protected onInput(value: string): void {
-    this.value.set(value)
-    this.onChange(value)
+  constructor() {
+    this.control.setValidators(() => (this.error() ? { custom: true } : null))
+
+    this.control.valueChanges.subscribe((next) => {
+      this.value.set(next)
+      this.onChange(next)
+    })
+
+    effect(() => {
+      const shouldDisable = this.disabled()
+      if (shouldDisable && !this.control.disabled) {
+        this.control.disable({ emitEvent: false })
+      } else if (!shouldDisable && this.control.disabled) {
+        this.control.enable({ emitEvent: false })
+      }
+    })
+
+    effect(() => {
+      if (this.error()) {
+        this.control.markAsTouched()
+      }
+      this.control.updateValueAndValidity({ emitEvent: false })
+    })
   }
 
   writeValue(value: string): void {
-    this.value.set(value ?? '')
+    const next = value ?? ''
+    this.value.set(next)
+    this.control.setValue(next, { emitEvent: false })
   }
 
   registerOnChange(fn: (value: string) => void): void {
@@ -70,6 +90,10 @@ export class MatInput implements ControlValueAccessor {
   }
 
   setDisabledState(isDisabled: boolean): void {
-    this.formDisabled.set(isDisabled)
+    if (isDisabled) {
+      this.control.disable({ emitEvent: false })
+    } else {
+      this.control.enable({ emitEvent: false })
+    }
   }
 }
