@@ -25,8 +25,7 @@ export default class Home {
 
   private readonly productsResource = rxResource({
     params: () => this.searchQuery(),
-    stream: ({ params }) =>
-      params ? this.productService.searchProducts(params) : this.productService.getProducts(),
+    stream: ({ params }) => (params ? this.productService.searchProducts(params) : this.productService.getProducts()),
   })
 
   protected readonly products = computed(() => this.productsResource.value() ?? [])
