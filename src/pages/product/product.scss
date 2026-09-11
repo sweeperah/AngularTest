@@ -175,15 +175,15 @@
     grid-template: 'first last' 'mail mail' / 1fr 1fr;
     gap: spacing(2);
 
-    InputComp[formcontrolname="firstName"] {
+    .ProductPageFormFieldFirst {
       grid-area: first;
     }
 
-    InputComp[formcontrolname="lastName"] {
+    .ProductPageFormFieldLast {
       grid-area: last;
     }
 
-    InputComp[formcontrolname="email"] {
+    .ProductPageFormFieldEmail {
       grid-area: mail;
     }
   }

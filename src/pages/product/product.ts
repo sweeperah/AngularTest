@@ -3,15 +3,28 @@ import { rxResource } from '@angular/core/rxjs-interop'
 import { CurrencyPipe, NgOptimizedImage } from '@angular/common'
 import { GoogleSymbol } from '../../components/googleSymbol/googleSymbol'
 import { ErrorState } from '../../components/errorState/errorState'
-import { ProductService } from '../../services/product.service'
+import { ApplicationData, ProductService } from '../../services/product.service'
 import { Input } from '../../components/form/input/input'
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 import { Card } from '../../components/card/card'
 import { Button } from '../../components/button/button'
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatInputModule } from '@angular/material/input'
 
 @Component({
   selector: 'ProductPage',
-  imports: [CurrencyPipe, NgOptimizedImage, GoogleSymbol, ErrorState, Input, ReactiveFormsModule, Card, Button],
+  imports: [
+    CurrencyPipe,
+    NgOptimizedImage,
+    GoogleSymbol,
+    ErrorState,
+    ReactiveFormsModule,
+    Card,
+    Button,
+    Input,
+    MatFormFieldModule,
+    MatInputModule,
+  ],
   template: `
     @if (isLoading()) {
       <p class="ProductPageLoading">Loading product…</p>
@@ -57,9 +70,37 @@ import { Button } from '../../components/button/button'
           <form [formGroup]="applyForm" (ngSubmit)="onSubmit()">
             <InputComp type="text" label="First Name" formControlName="firstName" [isRequired]="true" />
 
-            <InputComp type="text" label="Last Name" formControlName="lastName" [isRequired]="true" />
+            <mat-form-field class="ProductPageFormField ProductPageFormFieldFirst">
+              <mat-label>First Name</mat-label>
 
-            <InputComp type="email" label="Email" formControlName="email" [isRequired]="true" />
+              <input matInput type="text" formControlName="firstName" required />
+
+              @if (applyForm.controls.firstName.invalid && applyForm.controls.firstName.touched) {
+                <mat-error>First name is required</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field class="ProductPageFormField ProductPageFormFieldLast">
+              <mat-label>Last Name</mat-label>
+
+              <input matInput type="text" formControlName="lastName" required />
+
+              @if (applyForm.controls.lastName.invalid && applyForm.controls.lastName.touched) {
+                <mat-error>Last name is required</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field class="ProductPageFormField ProductPageFormFieldEmail">
+              <mat-label>Email</mat-label>
+
+              <input matInput type="email" formControlName="email" required />
+
+              @if (applyForm.controls.email.hasError('required') && applyForm.controls.email.touched) {
+                <mat-error>Email is required</mat-error>
+              } @else if (applyForm.controls.email.hasError('email') && applyForm.controls.email.touched) {
+                <mat-error>Enter a valid email</mat-error>
+              }
+            </mat-form-field>
 
             <ButtonComp type="submit" [disabled]="applyForm.invalid">Apply</ButtonComp>
           </form>
@@ -151,6 +192,6 @@ export default class ProductPage {
   }
 
   protected onSubmit(): void {
-    console.log(this.applyForm.value)
+    this.productService.submitApplication(this.applyForm.value as ApplicationData)
   }
 }
